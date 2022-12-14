@@ -29,4 +29,8 @@ public class TimeSlot {
 
     public boolean isFree() {return isFree;}
     public void setFree(boolean free) {isFree = free;}
+
+    public TimeSlot cloneTimeSlot() {
+        return new TimeSlot(this.getId(), this.getBeginning(), this.isFree());
+    }
 }

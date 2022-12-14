@@ -12,13 +12,16 @@ public class MeetingRoom {
     private String name;
     private String color;
 
+    private List<TimeSlot> timeSlots;
+
     /**
      * Constructor
      */
-    public MeetingRoom(int id, String name, String color) {
+    public MeetingRoom(int id, String name, String color, List<TimeSlot> timeSlots) {
         this.id = id;
         this.name = name;
         this.color = color;
+        this.timeSlots = timeSlots;
     }
 
     /**
@@ -32,4 +35,15 @@ public class MeetingRoom {
 
     public String getColor() {return color;}
     public void setColor(String color) {this.color = color;}
+
+    public List<TimeSlot> getTimeSlots() {
+        return timeSlots;
+    }
+    public void setTimeSlots(List<TimeSlot> timeSlots) {
+        this.timeSlots = timeSlots;
+    }
+
+    public MeetingRoom cloneMeetingRoom() {
+        return new MeetingRoom(this.getId(), this.getName(), this.getColor(), this.getTimeSlots());
+    }
 }

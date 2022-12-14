@@ -16,15 +16,26 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="#FF4444"
-        android:clickable="true"/>
+        android:background="#FF4444" />
+
+    <TextView
+        android:id="@+id/item_list_meeting_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="22/08/2022"
+        android:textColor="#000000"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@+id/item_list_meeting_sticker"
+        app:layout_constraintEnd_toEndOf="@+id/item_list_meeting_sticker"
+        app:layout_constraintStart_toStartOf="@+id/item_list_meeting_sticker"
+        app:layout_constraintTop_toTopOf="@+id/item_list_meeting_sticker" />
 
     <TextView
         android:id="@+id/item_list_meeting_meeting_room_name"
         android:layout_width="wrap_content"
         android:maxWidth="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
         android:text="Réunion Z"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -37,7 +48,7 @@
         android:layout_width="wrap_content"
         android:maxWidth="60dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
         android:text="14h00"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -50,7 +61,7 @@
         android:id="@+id/item_list_meeting_topic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
         android:maxWidth="100dp"
         android:maxHeight="24dp"
         android:text="Peach"
@@ -66,7 +77,7 @@
         android:layout_width="wrap_content"
         android:maxWidth="260dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
         android:text="mail@blabla.com, mail2@blabla.com"
         android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="@id/item_list_meeting_sticker"

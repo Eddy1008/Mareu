@@ -1,9 +1,11 @@
 package fr.zante.mareu.model;
 
+import java.io.Serializable;
+
 /**
  * Model object representing a member
  */
-public class Member {
+public class Member implements Serializable {
 
     private long id;
     private String name;

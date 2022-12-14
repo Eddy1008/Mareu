@@ -11,8 +11,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mareu">
         <activity
+            android:name=".controller.AddMemberActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".controller.AddMeetingActivity"
-            android:label="New meeting"/>
+            android:label="New meeting" />
         <activity
             android:name=".controller.ListMeetingActivity"
             android:exported="true">

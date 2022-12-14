@@ -3,6 +3,7 @@ package fr.zante.mareu.repository;
 import java.util.List;
 
 import fr.zante.mareu.model.Meeting;
+import fr.zante.mareu.model.MeetingDate;
 import fr.zante.mareu.model.MeetingRoom;
 import fr.zante.mareu.model.Member;
 import fr.zante.mareu.model.TimeSlot;
@@ -30,6 +31,22 @@ public class Repository {
         return meetingRooms;
     }
 
+    /**
+     * MeetingDate services :
+     */
+    public List<MeetingDate> getMeetingDates() {
+        List<MeetingDate> meetingDates = apiService.getMeetingDates();
+        return meetingDates;
+    }
+
+    public void addMeetingDate(MeetingDate meetingDate) {apiService.addMeetingDate(meetingDate);}
+
+    public void updateMeetingDate(MeetingDate meetingDate) {apiService.updateMeetingDate(meetingDate);}
+
+
+    /**
+     * Meeting services :
+     */
     public List<Meeting> getMeetings() {
         List<Meeting> meetings = apiService.getMeetings();
         return meetings;

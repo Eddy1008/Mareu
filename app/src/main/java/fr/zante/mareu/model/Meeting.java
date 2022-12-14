@@ -10,14 +10,14 @@ public class Meeting {
     private long id;
     private String meetingTopic;
     private MeetingRoom meetingRoom;
-    private String meetingDate;
+    private MeetingDate meetingDate;
     private TimeSlot meetingTimeSlot;
     private List<Member> members;
 
     /**
      * Constructor
      */
-    public Meeting(long id, String meetingTopic, MeetingRoom meetingRoom, String meetingDate, TimeSlot meetingTimeSlot, List<Member> members) {
+    public Meeting(long id, String meetingTopic, MeetingRoom meetingRoom, MeetingDate meetingDate, TimeSlot meetingTimeSlot, List<Member> members) {
         this.id = id;
         this.meetingTopic = meetingTopic;
         this.meetingRoom = meetingRoom;
@@ -38,8 +38,8 @@ public class Meeting {
     public MeetingRoom getMeetingRoom() {return meetingRoom;}
     public void setMeetingRoom(MeetingRoom meetingRoom) {this.meetingRoom = meetingRoom;}
 
-    public String getMeetingDate() {return meetingDate;}
-    public void setMeetingDate(String meetingDate) {this.meetingDate = meetingDate;}
+    public MeetingDate getMeetingDate() {return meetingDate;}
+    public void setMeetingDate(MeetingDate meetingDate) {this.meetingDate = meetingDate;}
 
     public TimeSlot getMeetingTimeSlot() {return meetingTimeSlot;}
     public void setMeetingTimeSlot(TimeSlot meetingTimeSlot) {this.meetingTimeSlot = meetingTimeSlot;}

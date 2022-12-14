@@ -16,6 +16,7 @@ import fr.zante.mareu.model.Meeting;
 public class ListMeetingViewHolder extends RecyclerView.ViewHolder{
 
     private ImageView sticker;
+    private TextView meetingDate;
     private TextView meetingRoomName;
     private TextView timeSlotBeginning;
     private TextView meetingTopic;
@@ -25,6 +26,7 @@ public class ListMeetingViewHolder extends RecyclerView.ViewHolder{
     public ListMeetingViewHolder(@NonNull View itemView) {
         super(itemView);
         sticker = itemView.findViewById(R.id.item_list_meeting_sticker);
+        meetingDate = itemView.findViewById(R.id.item_list_meeting_date);
         meetingRoomName = itemView.findViewById(R.id.item_list_meeting_meeting_room_name);
         timeSlotBeginning = itemView.findViewById(R.id.item_list_meeting_timeslot_beginning);
         meetingTopic = itemView.findViewById(R.id.item_list_meeting_topic);
@@ -33,6 +35,8 @@ public class ListMeetingViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void bind(Meeting meeting, MeetingListAdapter.Listener callback) {
+        String buildStringWithDate = meeting.getMeetingDate().getDay() + "/" + meeting.getMeetingDate().getMonth() + "/" + meeting.getMeetingDate().getYear();
+        meetingDate.setText(buildStringWithDate);
         meetingRoomName.setText(meeting.getMeetingRoom().getName());
         timeSlotBeginning.setText(meeting.getMeetingTimeSlot().getBeginning());
         meetingTopic.setText(meeting.getMeetingTopic());

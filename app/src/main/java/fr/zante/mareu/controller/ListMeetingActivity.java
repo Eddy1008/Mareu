@@ -51,6 +51,12 @@ public class ListMeetingActivity extends BaseActivity implements MeetingListAdap
     @Override
     public void onClickDelete(Meeting meeting) {
         getRepository().deleteMeeting(meeting);
+        setTimeSlotIsFreeToTrue(meeting);
         loadData();
+    }
+
+    private void setTimeSlotIsFreeToTrue(Meeting meeting) {
+        meeting.getMeetingTimeSlot().setFree(true);
+        getRepository().updateMeetingDate(meeting.getMeetingDate());
     }
 }
