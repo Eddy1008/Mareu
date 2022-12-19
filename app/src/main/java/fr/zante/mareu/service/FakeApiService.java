@@ -30,7 +30,7 @@ public class FakeApiService implements ApiService{
 
     @Override
     public List<MeetingRoom> getMeetingRooms() {
-        return meetingRoomList;
+        return FakeApiServiceGenerator.generateMeetingRoomsList();
     }
 
 
