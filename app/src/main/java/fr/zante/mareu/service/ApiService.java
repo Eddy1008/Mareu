@@ -20,6 +20,8 @@ public interface ApiService {
     void updateMeetingDate(MeetingDate meetingDate);
 
     List<Meeting> getMeetings();
+    List<Meeting> getMeetingsByRoom(String meetingRoomName);
+    List<Meeting> getMeetingsByDate(int dateFull);
     void addMeeting(Meeting meeting);
     void deleteMeeting(Meeting meeting);
 }

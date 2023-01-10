@@ -8,8 +8,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
-
 import fr.zante.mareu.R;
 import fr.zante.mareu.model.Meeting;
 
@@ -35,6 +33,7 @@ public class ListMeetingViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void bind(Meeting meeting, MeetingListAdapter.Listener callback) {
+        sticker.setImageResource(meeting.getMeetingRoom().getColor());
         String buildStringWithDate = meeting.getMeetingDate().getDay() + "/" + meeting.getMeetingDate().getMonth() + "/" + meeting.getMeetingDate().getYear();
         meetingDate.setText(buildStringWithDate);
         meetingRoomName.setText(meeting.getMeetingRoom().getName());

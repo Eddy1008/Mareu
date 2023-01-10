@@ -65,7 +65,6 @@ public class AddMemberActivity extends AppCompatActivity implements MemberListAd
         Intent intent = getIntent();
         Bundle myBundle = intent.getBundleExtra("BUNDLE_MEMBERS_LIST");
         membersList = (List<Member>) myBundle.get("MEMBERS_LIST");
-        Log.d("getMembersListData", "membersList: " + membersList.size());
     }
 
     private void configureMemberListRecyclerView() {
@@ -95,22 +94,13 @@ public class AddMemberActivity extends AppCompatActivity implements MemberListAd
         for (int i=0; i< membersList.size(); i++) {
             if (member.getMail().equals(membersList.get(i).getMail())) {
                 membersList.remove(membersList.get(i));
-                String messageToast = member.getName() + " supprimé !";
-                Toast.makeText(this, messageToast, Toast.LENGTH_SHORT).show();
-                Log.d("onClickAddList", "memberList remove: " + member.getName());
-                Log.d("onClickAddList", "memberList size: " + membersList.size());
                 isInTheList = true;
                 break;
             }
         }
         if (!isInTheList) {
             membersList.add(member);
-            String messageToast = member.getName() + " ajouté !";
-            Toast.makeText(this, messageToast, Toast.LENGTH_SHORT).show();
-            Log.d("onClickAddList", "memberList add: " + member.getName());
-            Log.d("onClickAddList", "memberList size: " + membersList.size());
         }
-
         setAddToListButtonAppearance(imageButton, membersList.contains(member));
     }
 

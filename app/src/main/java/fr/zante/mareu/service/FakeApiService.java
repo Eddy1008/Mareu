@@ -1,5 +1,6 @@
 package fr.zante.mareu.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.zante.mareu.model.Meeting;
@@ -61,6 +62,29 @@ public class FakeApiService implements ApiService{
     public List<Meeting> getMeetings() {
         return meetings;
     }
+
+    @Override
+    public List<Meeting> getMeetingsByRoom(String meetingRoomName) {
+        List<Meeting> meetingsByRoomList = new ArrayList<>();
+        for (Meeting meeting: meetings) {
+            if (meetingRoomName.equals(meeting.getMeetingRoom().getName())) {
+                meetingsByRoomList.add(meeting);
+            }
+        }
+        return meetingsByRoomList;
+    }
+
+    @Override
+    public List<Meeting> getMeetingsByDate(int dateFull) {
+        List<Meeting> meetingsByDateList = new ArrayList<>();
+        for (Meeting meeting: meetings) {
+            if (dateFull == meeting.getMeetingDate().getDateFull()) {
+                meetingsByDateList.add(meeting);
+            }
+        }
+        return meetingsByDateList;
+    }
+
 
     @Override
     public void addMeeting(Meeting meeting) {

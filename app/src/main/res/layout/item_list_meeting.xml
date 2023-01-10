@@ -16,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="#FF4444" />
+        android:src="@drawable/ic_baseline_circle_60_room_a" />
 
     <TextView
         android:id="@+id/item_list_meeting_date"
@@ -74,14 +74,18 @@
 
     <TextView
         android:id="@+id/item_list_meeting_member_list"
-        android:layout_width="wrap_content"
-        android:maxWidth="260dp"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:maxLines="3"
+        android:ellipsize="end"
         android:text="mail@blabla.com, mail2@blabla.com"
         android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="@id/item_list_meeting_sticker"
-        app:layout_constraintStart_toEndOf="@+id/item_list_meeting_sticker" />
+        app:layout_constraintEnd_toStartOf="@+id/item_list_meeting_delete_button"
+        app:layout_constraintStart_toEndOf="@+id/item_list_meeting_sticker"
+        app:layout_constraintTop_toBottomOf="@+id/item_list_meeting_timeslot_beginning" />
 
     <ImageButton
         android:id="@+id/item_list_meeting_delete_button"

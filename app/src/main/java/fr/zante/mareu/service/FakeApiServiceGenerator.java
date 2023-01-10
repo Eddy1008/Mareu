@@ -1,10 +1,10 @@
 package fr.zante.mareu.service;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import fr.zante.mareu.R;
 import fr.zante.mareu.model.Meeting;
 import fr.zante.mareu.model.MeetingDate;
 import fr.zante.mareu.model.MeetingRoom;
@@ -26,7 +26,7 @@ public class FakeApiServiceGenerator {
             new Member(8, "Julien", "Julien@mareu.com")
     );
 
-    static List<TimeSlot> generateTimeSlotsList() {
+    public static List<TimeSlot> generateTimeSlotsList() {
         return Arrays.asList(
                 new TimeSlot(0,"8H00",true),
                 new TimeSlot(1,"9H00",true),
@@ -41,18 +41,18 @@ public class FakeApiServiceGenerator {
         );
     }
 
-    static List<MeetingRoom> generateMeetingRoomsList() {
+    public static List<MeetingRoom> generateMeetingRoomsList() {
         return Arrays.asList(
-                new MeetingRoom(0, "Reunion A", "#FF4444", generateTimeSlotsList()),
-                new MeetingRoom(1, "Reunion B", "#FF4444", generateTimeSlotsList()),
-                new MeetingRoom(2, "Reunion C", "#FF4444", generateTimeSlotsList()),
-                new MeetingRoom(3, "Reunion D", "#FF4444", generateTimeSlotsList()),
-                new MeetingRoom(4, "Reunion E", "#FF4444", generateTimeSlotsList()),
-                new MeetingRoom(5, "Reunion F", "#FF4444", generateTimeSlotsList()),
-                new MeetingRoom(6, "Reunion G", "#FF4444", generateTimeSlotsList()),
-                new MeetingRoom(7, "Reunion H", "#FF4444", generateTimeSlotsList()),
-                new MeetingRoom(8, "Reunion I", "#FF4444", generateTimeSlotsList()),
-                new MeetingRoom(9, "Reunion J", "#FF4444", generateTimeSlotsList())
+                new MeetingRoom(0, "Reunion A", R.drawable.ic_baseline_circle_60_room_a, generateTimeSlotsList()),
+                new MeetingRoom(1, "Reunion B", R.drawable.ic_baseline_circle_60_room_b, generateTimeSlotsList()),
+                new MeetingRoom(2, "Reunion C", R.drawable.ic_baseline_circle_60_room_c, generateTimeSlotsList()),
+                new MeetingRoom(3, "Reunion D", R.drawable.ic_baseline_circle_60_room_d, generateTimeSlotsList()),
+                new MeetingRoom(4, "Reunion E", R.drawable.ic_baseline_circle_60_room_e, generateTimeSlotsList()),
+                new MeetingRoom(5, "Reunion F", R.drawable.ic_baseline_circle_60_room_f, generateTimeSlotsList()),
+                new MeetingRoom(6, "Reunion G", R.drawable.ic_baseline_circle_60_room_g, generateTimeSlotsList()),
+                new MeetingRoom(7, "Reunion H", R.drawable.ic_baseline_circle_60_room_h, generateTimeSlotsList()),
+                new MeetingRoom(8, "Reunion I", R.drawable.ic_baseline_circle_60_room_i, generateTimeSlotsList()),
+                new MeetingRoom(9, "Reunion J", R.drawable.ic_baseline_circle_60_room_j, generateTimeSlotsList())
         );
     }
 
@@ -62,8 +62,8 @@ public class FakeApiServiceGenerator {
     static List<Meeting> generateMeetingsList() {return new ArrayList<>(MEETINGS_LIST);}
     public static List<Meeting> MEETINGS_LIST = Arrays.asList();
 
-    /**
-    static List<Member> generateMembersForMeeting() {
+
+    public static List<Member> generateMembersForMeeting() {
         List<Member> membersForMeeting = new ArrayList<>();
         int min = 2;
         int max = 4;
@@ -74,9 +74,7 @@ public class FakeApiServiceGenerator {
         }
         return membersForMeeting;
     }
-     */
 
-    /**
     static Member newRandomMember() {
         // create a random index:
         int randomFakeMemberIndex = (int) (Math.random() * (MEMBERS_LIST.size()));
@@ -85,5 +83,4 @@ public class FakeApiServiceGenerator {
         //return a user
         return randomMemberToAdd;
     }
-     */
 }

@@ -1,21 +1,19 @@
 package fr.zante.mareu.controller;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
@@ -44,11 +42,13 @@ public class AddMeetingActivity extends AppCompatActivity {
     private MeetingRoom meetingRoom;
     private Spinner timeSlotSpinner;
     private TimeSlot timeSlot;
+    private RecyclerView recyclerView;
     private ImageView addMemberToListButton;
     private MaterialButton addMeetingButton;
 
     private Repository repository;
     private List<Member> membersForNewMeeting;
+    private MailMemberListAdapter adapter;
 
     private static final int ADD_MEMBER_ACTIVITY_REQUEST_CODE = 42;
 
@@ -58,7 +58,6 @@ public class AddMeetingActivity extends AppCompatActivity {
         if (ADD_MEMBER_ACTIVITY_REQUEST_CODE == requestCode && RESULT_OK == resultCode) {
             assert data != null;
             membersForNewMeeting = (List<Member>) data.getSerializableExtra(AddMemberActivity.BUNDLE_LIST_MEMBER_CREATED);
-            Log.d("onActivityResult", "list size = " + membersForNewMeeting.size());
         }
     }
 
@@ -83,7 +82,16 @@ public class AddMeetingActivity extends AppCompatActivity {
         configureMeetingRoomSpinner();
         configureTimeSlotSpinner();
         configureAddMemberToListButton();
+
+        configureRecyclerViewMailMemberList();
+
         configureAddMeetingButton();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadMailMemberListData();
     }
 
     private void configurePreviousPageButton() {
@@ -100,8 +108,7 @@ public class AddMeetingActivity extends AppCompatActivity {
             public void onDateChanged(DatePicker datePicker, int year, int month, int dayOfMonth) {
                 long newMeetingDateId = buildNewMeetingDateId();
                 meetingDate = new MeetingDate(newMeetingDateId, year, month+1, dayOfMonth, repository.getMeetingRooms());
-                Log.d("meetingDate created :", "configuredatapicker: onDateChanged: " + meetingDate.getDay() + "/" + meetingDate.getMonth() + "/" + meetingDate.getYear());
-                addMeetingDateToMyList();
+                getMeetingDateFromAvailableList();
                 configureMeetingRoomSpinner();
                 configureTimeSlotSpinner();
             }
@@ -109,8 +116,17 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         long meetingDateId = buildNewMeetingDateId();
         meetingDate = new MeetingDate(meetingDateId, datePicker.getYear(), datePicker.getMonth()+1, datePicker.getDayOfMonth(), repository.getMeetingRooms());
-        Log.d("meetingDate created :", "configuredatapicker: " + meetingDate.getDay() + "/" + meetingDate.getMonth() + "/" + meetingDate.getYear());
-        addMeetingDateToMyList();
+        getMeetingDateFromAvailableList();
+    }
+
+    private void getMeetingDateFromAvailableList() {
+        List<MeetingDate> availableListMeetingDate = repository.getMeetingDates();
+        for (int i=0; i<availableListMeetingDate.size(); i++) {
+            if(availableListMeetingDate.get(i).getYear() == meetingDate.getYear() && availableListMeetingDate.get(i).getMonth() == meetingDate.getMonth() && availableListMeetingDate.get(i).getDay() == meetingDate.getDay()) {
+                meetingDate = availableListMeetingDate.get(i);
+                break;
+            }
+        }
     }
 
     private void addMeetingDateToMyList() {
@@ -126,7 +142,6 @@ public class AddMeetingActivity extends AppCompatActivity {
         if (!isAvailable) {
             repository.addMeetingDate(meetingDate);
         }
-        Log.d("meetingDateListSize", "addMeetingDateToMyList: nombre d'elements dans la liste = " + repository.getMeetingDates().size() + " dernier index: " + repository.getMeetingDates().get(repository.getMeetingDates().size()-1).getId());
     }
 
     private void configureMeetingRoomSpinner() {
@@ -165,6 +180,16 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
     }
 
+    private void configureRecyclerViewMailMemberList() {
+        recyclerView = findViewById(R.id.add_activity_recycler_view_meeting_member_list);
+        adapter = new MailMemberListAdapter();
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void loadMailMemberListData() {
+        adapter.updateMailMemberList(membersForNewMeeting);
+    }
+
     private void configureAddMemberToListButton() {
         addMemberToListButton.setOnClickListener(view -> {
             Intent intent = new Intent(view.getContext(), AddMemberActivity.class);
@@ -177,24 +202,32 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     private void configureAddMeetingButton() {
         addMeetingButton.setOnClickListener(view -> {
-            // CREATE A MEETING :
-            long meetingId = buildNewMeetingId();
+            if (topicInput.getEditText().getText().toString().equals("")) {
+                topicInput.setError("Veuillez saisir un sujet !");
+            } else if (membersForNewMeeting.size() == 0) {
+                Toast.makeText(this, "Sélectionner les participants !", Toast.LENGTH_SHORT).show();
+            } else {
+                // CREATE A MEETING DATE:
+                addMeetingDateToMyList();
 
-            Meeting meeting = new Meeting(
-                    meetingId,
-                    topicInput.getEditText().getText().toString(),
-                    meetingRoom,
-                    meetingDate,
-                    timeSlot,
-                    membersForNewMeeting
-            );
-            repository.addMeeting(meeting);
+                // CREATE A MEETING :
+                long meetingId = buildNewMeetingId();
+                Meeting meeting = new Meeting(
+                        meetingId,
+                        topicInput.getEditText().getText().toString(),
+                        meetingRoom,
+                        meetingDate,
+                        timeSlot,
+                        membersForNewMeeting
+                );
+                repository.addMeeting(meeting);
 
-            // UPDATE MEETING DATE:
-            timeSlot.setFree(false);
-            repository.updateMeetingDate(meetingDate);
+                // UPDATE MEETING DATE:
+                timeSlot.setFree(false);
+                repository.updateMeetingDate(meetingDate);
 
-            finish();
+                finish();
+            }
         });
     }
 

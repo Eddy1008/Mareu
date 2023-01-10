@@ -1,5 +1,6 @@
 package fr.zante.mareu.model;
 
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -25,6 +26,20 @@ public class Meeting {
         this.meetingTimeSlot = meetingTimeSlot;
         this.members = members;
     }
+
+    public static Comparator<Meeting> meetingDateComparator = new Comparator<Meeting>() {
+        @Override
+        public int compare(Meeting m1, Meeting m2) {
+            return m1.getMeetingDate().getDateFull() - m2.getMeetingDate().getDateFull();
+        }
+    };
+
+    public static Comparator<Meeting> meetingRoomComparator = new Comparator<Meeting>() {
+        @Override
+        public int compare(Meeting m1, Meeting m2) {
+            return m1.getMeetingRoom().getName().compareTo(m2.getMeetingRoom().getName());
+        }
+    };
 
     /**
      * Getters & Setters

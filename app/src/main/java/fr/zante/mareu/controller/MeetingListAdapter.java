@@ -10,10 +10,12 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import fr.zante.mareu.R;
 import fr.zante.mareu.model.Meeting;
+import fr.zante.mareu.model.MeetingDate;
 import fr.zante.mareu.utils.MeetingDiffCallback;
 
 public class MeetingListAdapter extends RecyclerView.Adapter<ListMeetingViewHolder> {
@@ -48,5 +50,15 @@ public class MeetingListAdapter extends RecyclerView.Adapter<ListMeetingViewHold
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MeetingDiffCallback(newList, this.meetings));
         this.meetings = new ArrayList<>(newList);
         diffResult.dispatchUpdatesTo(this);
+    }
+
+    public void meetingOrderedByDate() {
+        Collections.sort(meetings, Meeting.meetingDateComparator);
+        notifyDataSetChanged();
+    }
+
+    public void meetingOrderedByRoom() {
+        Collections.sort(meetings, Meeting.meetingRoomComparator);
+        notifyDataSetChanged();
     }
 }

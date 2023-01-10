@@ -1,6 +1,5 @@
 package fr.zante.mareu.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,14 +9,14 @@ public class MeetingRoom {
 
     private int id;
     private String name;
-    private String color;
+    private int color;
 
     private List<TimeSlot> timeSlots;
 
     /**
      * Constructor
      */
-    public MeetingRoom(int id, String name, String color, List<TimeSlot> timeSlots) {
+    public MeetingRoom(int id, String name, int color, List<TimeSlot> timeSlots) {
         this.id = id;
         this.name = name;
         this.color = color;
@@ -33,8 +32,8 @@ public class MeetingRoom {
     public String getName() {return name;}
     public void setName(String name) {this.name = name;}
 
-    public String getColor() {return color;}
-    public void setColor(String color) {this.color = color;}
+    public int getColor() {return color;}
+    public void setColor(int color) {this.color = color;}
 
     public List<TimeSlot> getTimeSlots() {
         return timeSlots;

@@ -12,6 +12,7 @@
         android:theme="@style/Theme.Mareu">
         <activity
             android:name=".controller.AddMemberActivity"
+            android:label="Sélectionner les participants"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -19,7 +20,7 @@
         </activity>
         <activity
             android:name=".controller.AddMeetingActivity"
-            android:label="New meeting" />
+            android:label="Planifier une réunion" />
         <activity
             android:name=".controller.ListMeetingActivity"
             android:exported="true">

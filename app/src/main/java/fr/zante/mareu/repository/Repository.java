@@ -1,5 +1,6 @@
 package fr.zante.mareu.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.zante.mareu.model.Meeting;
@@ -50,6 +51,16 @@ public class Repository {
     public List<Meeting> getMeetings() {
         List<Meeting> meetings = apiService.getMeetings();
         return meetings;
+    }
+
+    public List<Meeting> getMeetingsByRoom(String meetingRoomName) {
+        List<Meeting> meetingsByRoomList = apiService.getMeetingsByRoom(meetingRoomName);
+        return meetingsByRoomList;
+    }
+
+    public List<Meeting> getMeetingsByDate(int dateFull) {
+        List<Meeting> meetingsByDateList = apiService.getMeetingsByDate(dateFull);
+        return meetingsByDateList;
     }
 
     public void addMeeting(Meeting meeting) {
