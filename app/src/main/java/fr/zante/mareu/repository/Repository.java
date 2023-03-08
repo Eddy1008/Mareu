@@ -10,6 +10,10 @@ import fr.zante.mareu.model.Member;
 import fr.zante.mareu.model.TimeSlot;
 import fr.zante.mareu.service.ApiService;
 
+/**
+ * Repository allowing access to data and modification
+ * @author Eddy GALMAND
+ */
 public class Repository {
     private final ApiService apiService;
 
@@ -32,9 +36,7 @@ public class Repository {
         return meetingRooms;
     }
 
-    /**
-     * MeetingDate services :
-     */
+    // MeetingDate CRUD :
     public List<MeetingDate> getMeetingDates() {
         List<MeetingDate> meetingDates = apiService.getMeetingDates();
         return meetingDates;
@@ -45,9 +47,7 @@ public class Repository {
     public void updateMeetingDate(MeetingDate meetingDate) {apiService.updateMeetingDate(meetingDate);}
 
 
-    /**
-     * Meeting services :
-     */
+    // Meeting CRUD
     public List<Meeting> getMeetings() {
         List<Meeting> meetings = apiService.getMeetings();
         return meetings;

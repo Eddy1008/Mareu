@@ -15,6 +15,11 @@ import java.util.List;
 import fr.zante.mareu.R;
 import fr.zante.mareu.model.TimeSlot;
 
+/**
+ * <p>Adapter which handles the list of Time slot</p>
+ * <p>to display in a spinner</p>
+ * @author Eddy GALMAND
+ */
 public class TimeSlotSpinnerAdapter extends ArrayAdapter<TimeSlot> {
 
     private LayoutInflater layoutInflater;

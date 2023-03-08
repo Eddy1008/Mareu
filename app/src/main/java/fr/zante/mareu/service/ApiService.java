@@ -8,6 +8,10 @@ import fr.zante.mareu.model.MeetingRoom;
 import fr.zante.mareu.model.Member;
 import fr.zante.mareu.model.TimeSlot;
 
+/**
+ * interface grouping together all the methods necessary for data processing
+ * @author Eddy GALMAND
+ */
 public interface ApiService {
     List<TimeSlot> getTimeSlots();
 

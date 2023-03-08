@@ -18,15 +18,37 @@ import fr.zante.mareu.model.Meeting;
 import fr.zante.mareu.model.MeetingDate;
 import fr.zante.mareu.utils.MeetingDiffCallback;
 
+/**
+ * <p>Adapter which handles the list of meetings to display in the dedicated recyclerView.</p>
+ * @author Eddy GALMAND
+ */
 public class MeetingListAdapter extends RecyclerView.Adapter<ListMeetingViewHolder> {
 
+    /**
+     * List of meetings the adapter deals with.
+     */
     private List<Meeting> meetings = new ArrayList<>();
 
+    /**
+     * The listener for when a meeting needs to be deleted.
+     */
     private final Listener callback;
+
+    /**
+     * Listener for deleting meetings
+     */
     public interface Listener {
+        /**
+         * Called when a meeting needs to be deleted
+         * @param meeting the meeting that needs to be deleted
+         */
         void onClickDelete(Meeting meeting);
     }
 
+    /**
+     * Instantiates a new MeetingListAdapter
+     * @param callback listener for when a meeting needs to be deleted.
+     */
     public MeetingListAdapter(Listener callback) { this.callback = callback; }
 
     @NonNull
@@ -46,19 +68,32 @@ public class MeetingListAdapter extends RecyclerView.Adapter<ListMeetingViewHold
     @Override
     public int getItemCount() { return meetings.size(); }
 
+    /**
+     * Arrange the list of meeting by chronological order
+     */
+    public void meetingOrderedByDate() {
+        Collections.sort(meetings, Meeting.meetingDateComparator);
+        notifyDataSetChanged();
+    }
+
+    /**
+     * Arrange the list of meeting by meeting room
+     */
+    public void meetingOrderedByRoom() {
+        Collections.sort(meetings, Meeting.meetingRoomComparator);
+        notifyDataSetChanged();
+    }
+
+
+    /**
+     * Update the list of meetings the adapter deals with
+     * @param newList the list of meetings the adapter deals with
+     */
     public void updateList(List<Meeting> newList) {
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MeetingDiffCallback(newList, this.meetings));
         this.meetings = new ArrayList<>(newList);
         diffResult.dispatchUpdatesTo(this);
     }
 
-    public void meetingOrderedByDate() {
-        Collections.sort(meetings, Meeting.meetingDateComparator);
-        notifyDataSetChanged();
-    }
 
-    public void meetingOrderedByRoom() {
-        Collections.sort(meetings, Meeting.meetingRoomComparator);
-        notifyDataSetChanged();
-    }
 }

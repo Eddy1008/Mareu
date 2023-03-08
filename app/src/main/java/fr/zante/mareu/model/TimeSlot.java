@@ -1,7 +1,8 @@
 package fr.zante.mareu.model;
 
 /**
- * Model object representing a Time slot
+ * <p>Model object representing a Time slot</p>
+ * @author Eddy GALMAND
  */
 public class TimeSlot {
 
@@ -9,18 +10,18 @@ public class TimeSlot {
     private String beginning;
     private boolean isFree;
 
-    /**
-     * Constructor
-     */
+
+    // Constructor
+
     public TimeSlot(int id, String beginning, boolean isFree) {
         this.id = id;
         this.beginning = beginning;
         this.isFree = isFree;
     }
 
-    /**
-     * Getters & Setters
-     */
+
+    // Getters & Setters
+
     public int getId() {return id;}
     public void setId(int id) {this.id = id;}
 

@@ -11,6 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import fr.zante.mareu.R;
 import fr.zante.mareu.model.Meeting;
 
+/**
+ * <p>ViewHolder for meeting items in the meeting list</p>
+ * @author Eddy GALMAND
+ */
 public class ListMeetingViewHolder extends RecyclerView.ViewHolder{
 
     private ImageView sticker;
@@ -21,6 +25,10 @@ public class ListMeetingViewHolder extends RecyclerView.ViewHolder{
     private TextView members;
     private ImageButton deleteButton;
 
+    /**
+     * Instantiates a new ListMeetingViewHolder
+     * @param itemView the view of the meeting item
+     */
     public ListMeetingViewHolder(@NonNull View itemView) {
         super(itemView);
         sticker = itemView.findViewById(R.id.item_list_meeting_sticker);
@@ -32,6 +40,11 @@ public class ListMeetingViewHolder extends RecyclerView.ViewHolder{
         deleteButton = itemView.findViewById(R.id.item_list_meeting_delete_button);
     }
 
+    /**
+     * Binds a meeting to the view
+     * @param meeting the meeting to bind in the view
+     * @param callback the Listener to bind to the delete button
+     */
     public void bind(Meeting meeting, MeetingListAdapter.Listener callback) {
         sticker.setImageResource(meeting.getMeetingRoom().getColor());
         String buildStringWithDate = meeting.getMeetingDate().getDay() + "/" + meeting.getMeetingDate().getMonth() + "/" + meeting.getMeetingDate().getYear();
@@ -44,6 +57,10 @@ public class ListMeetingViewHolder extends RecyclerView.ViewHolder{
         deleteButton.setOnClickListener(view -> callback.onClickDelete(meeting));
     }
 
+    /**
+     * @param meeting the meeting of which we need to show the members
+     * @return a String containing the members of the meeting
+     */
     private String makeStringWithMembers(Meeting meeting) {
         String membersList = "";
         for(int i = 0; i < meeting.getMembers().size(); i++) {

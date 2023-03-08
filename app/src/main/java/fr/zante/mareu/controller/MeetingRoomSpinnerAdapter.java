@@ -15,6 +15,11 @@ import java.util.List;
 import fr.zante.mareu.R;
 import fr.zante.mareu.model.MeetingRoom;
 
+/**
+ * <p>Adapter which handles the list of meeting room</p>
+ * <p>to display in a spinner</p>
+ * @author Eddy GALMAND
+ */
 public class MeetingRoomSpinnerAdapter extends ArrayAdapter<MeetingRoom> {
 
     private LayoutInflater layoutInflater;

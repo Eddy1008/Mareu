@@ -9,6 +9,11 @@ import fr.zante.mareu.model.MeetingRoom;
 import fr.zante.mareu.model.Member;
 import fr.zante.mareu.model.TimeSlot;
 
+/**
+ * Service used by the repository for data access
+ * implements the ApiService interface to define the operation of its methods
+ * @author Eddy GALMAND
+ */
 public class FakeApiService implements ApiService{
 
     private List<TimeSlot> timeSlotList = FakeApiServiceGenerator.generateTimeSlotsList();
@@ -35,9 +40,7 @@ public class FakeApiService implements ApiService{
     }
 
 
-    /**
-     * For the MeetingDate management :
-     */
+    // For the MeetingDate management
     @Override
     public List<MeetingDate> getMeetingDates() {
         return meetingDateList;
@@ -55,9 +58,7 @@ public class FakeApiService implements ApiService{
     }
 
 
-    /**
-     * For the Meeting management:
-     */
+    // For the Meeting management:
     @Override
     public List<Meeting> getMeetings() {
         return meetings;

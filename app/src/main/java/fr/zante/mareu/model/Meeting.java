@@ -4,7 +4,8 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Model object representing a Meeting.
+ * <p>Model object representing a Meeting</p>
+ * @author Eddy GALMAND
  */
 public class Meeting {
 
@@ -15,9 +16,8 @@ public class Meeting {
     private TimeSlot meetingTimeSlot;
     private List<Member> members;
 
-    /**
-     * Constructor
-     */
+    // Constructor
+
     public Meeting(long id, String meetingTopic, MeetingRoom meetingRoom, MeetingDate meetingDate, TimeSlot meetingTimeSlot, List<Member> members) {
         this.id = id;
         this.meetingTopic = meetingTopic;
@@ -41,9 +41,8 @@ public class Meeting {
         }
     };
 
-    /**
-     * Getters & Setters
-     */
+    // Getters & Setters
+
     public long getId() {return id;}
     public void setId(long id) {this.id = id;}
 

@@ -4,7 +4,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -20,12 +19,21 @@ import fr.zante.mareu.model.Meeting;
 import fr.zante.mareu.model.MeetingDate;
 import fr.zante.mareu.model.MeetingRoom;
 
+/**
+ * <p>Home activity of the application which is displayed when the user opens the app.</p>
+ * <p>Displays the list of tasks.</p>
+ * @author Eddy GALMAND
+ */
 public class ListMeetingActivity extends BaseActivity implements MeetingListAdapter.Listener {
 
     ActionBar aBar;
     Menu myMenu;
     RecyclerView recyclerView;
     FloatingActionButton addMeetingMenuButton;
+
+    /**
+     * The adapter which handles the list of meetings
+     */
     private MeetingListAdapter adapter;
 
     @Override
@@ -57,6 +65,10 @@ public class ListMeetingActivity extends BaseActivity implements MeetingListAdap
         return true;
     }
 
+    /**
+     * Set the button showing all meetings in  the menu
+     * @param menu
+     */
     public void setNoFilterButton(Menu menu) {
         menu.getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
@@ -67,10 +79,18 @@ public class ListMeetingActivity extends BaseActivity implements MeetingListAdap
         });
     }
 
+    /**
+     * Arrange the list of meeting date in the menu in chronological order
+     * @param meetingDates list of meeting date displayed in the menu
+     */
     public void meetingDateOrderedByDateFull(List<MeetingDate> meetingDates) {
         Collections.sort(meetingDates, MeetingDate.meetingDateFullComparator);
     }
 
+    /**
+     * create the meeting date buttons displayed in the menu
+     * @param menu
+     */
     public void updateDateOptionsMenu(Menu menu) {
         List<MeetingDate> meetingDateAvailableList = getRepository().getMeetingDates();
         meetingDateOrderedByDateFull(meetingDateAvailableList);
@@ -103,6 +123,10 @@ public class ListMeetingActivity extends BaseActivity implements MeetingListAdap
         }
     }
 
+    /**
+     * create the meeting room buttons displayed in the menu
+     * @param menu
+     */
     public void updateMeetingRoomOptionsMenu(Menu menu) {
         List<MeetingRoom> meetingRoomAvailableList = getRepository().getMeetingRooms();
         int meetingRoomListSize = meetingRoomAvailableList.size();
@@ -131,12 +155,18 @@ public class ListMeetingActivity extends BaseActivity implements MeetingListAdap
         }
     }
 
+    /**
+     * configure the meeting list recyclerView
+     */
     private void configureRecyclerView() {
         recyclerView = findViewById(R.id.activity_list_meeting_recycler_view);
         adapter = new MeetingListAdapter(this);
         recyclerView.setAdapter(adapter);
     }
 
+    /**
+     * configure the add meeting button
+     */
     private void configureAddMeetingButton() {
         addMeetingMenuButton = findViewById(R.id.activity_list_meeting_add_button);
         addMeetingMenuButton.setOnClickListener(view -> {
@@ -144,10 +174,19 @@ public class ListMeetingActivity extends BaseActivity implements MeetingListAdap
         });
     }
 
+    /**
+     * Update the meeting list to display
+     */
     private void loadData() {
         adapter.updateList(getRepository().getMeetings());
     }
 
+    /**
+     * Delete the meeting from data,
+     * update the time slot isFree to true
+     * and update the meeting list displayed
+     * @param meeting target to delete from data
+     */
     @Override
     public void onClickDelete(Meeting meeting) {
         getRepository().deleteMeeting(meeting);
@@ -155,6 +194,11 @@ public class ListMeetingActivity extends BaseActivity implements MeetingListAdap
         loadData();
     }
 
+    /**
+     * Set the meeting isFree to true
+     * update the data
+     * @param meeting target that we need to update isFree
+     */
     private void setTimeSlotIsFreeToTrue(Meeting meeting) {
         meeting.getMeetingTimeSlot().setFree(true);
         getRepository().updateMeetingDate(meeting.getMeetingDate());

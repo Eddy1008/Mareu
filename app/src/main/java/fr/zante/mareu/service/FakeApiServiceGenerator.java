@@ -11,6 +11,10 @@ import fr.zante.mareu.model.MeetingRoom;
 import fr.zante.mareu.model.Member;
 import fr.zante.mareu.model.TimeSlot;
 
+/**
+ * File containing the data used by the project
+ * @author Eddy GALMAND
+ */
 public class FakeApiServiceGenerator {
 
     static List<Member> generateMembersList() {return new ArrayList<>(MEMBERS_LIST);}
@@ -63,6 +67,7 @@ public class FakeApiServiceGenerator {
     public static List<Meeting> MEETINGS_LIST = Arrays.asList();
 
 
+    // for tests:
     public static List<Member> generateMembersForMeeting() {
         List<Member> membersForMeeting = new ArrayList<>();
         int min = 2;

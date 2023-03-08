@@ -1,19 +1,22 @@
 package fr.zante.mareu.model;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * <p>Model object representing a Meeting date</p>
+ * @author Eddy GALMAND
+ */
 public class MeetingDate {
 
     private long id;
-
     private int year;
     private int month;
     private int day;
     private int dateFull;
-
     private List<MeetingRoom> meetingRooms;
+
+    // Constructor
 
     public MeetingDate(long id, int year, int month, int day, List<MeetingRoom> meetingRooms) {
         this.id = id;
@@ -29,6 +32,8 @@ public class MeetingDate {
             return m1.getDateFull() - m2.getDateFull();
         }
     };
+
+    // Getters & Setters
 
     public long getId() {return id;}
     public void setId(long id) {this.id = id;}

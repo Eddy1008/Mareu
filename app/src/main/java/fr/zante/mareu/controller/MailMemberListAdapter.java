@@ -14,8 +14,16 @@ import java.util.List;
 import fr.zante.mareu.R;
 import fr.zante.mareu.model.Member;
 
+/**
+ * <p>Adapter which handles a list of members participating to a meeting </p>
+ * <p>to display their mail in the dedicated recyclerView.</p>
+ * @author Eddy GALMAND
+ */
 public class MailMemberListAdapter extends RecyclerView.Adapter<ListMailMemberViewHolder>{
 
+    /**
+     * List of members the adapter deals with.
+     */
     private List<Member> members = new ArrayList<>();
 
     @NonNull
@@ -38,6 +46,10 @@ public class MailMemberListAdapter extends RecyclerView.Adapter<ListMailMemberVi
     }
 
 
+    /**
+     * update the list displayed in the recyclerView
+     * @param memberList the list received to update the one displayed
+     */
     public void updateMailMemberList(List<Member> memberList) {
         this.members = new ArrayList<>(memberList);
         notifyDataSetChanged();

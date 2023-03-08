@@ -75,6 +75,7 @@
         tools:listitem="@layout/item_list_mail_member" />
 
     <ImageView
+        android:contentDescription="Ajouter un participant"
         android:id="@+id/add_activity_add_member_to_list_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

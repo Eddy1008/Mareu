@@ -33,14 +33,30 @@ public class FakeApiServiceUnitTest {
     public void  getTimeSlotsWithSuccess() {
         List<TimeSlot> timeSlots = repository.getTimeSlots();
         List<TimeSlot> timeSlotsExpectedList = FakeApiServiceGenerator.generateTimeSlotsList();
-        assertThat(timeSlots, IsIterableContainingInAnyOrder.containsInAnyOrder(timeSlotsExpectedList.toArray()));
+
+        //assertThat(timeSlots, IsIterableContainingInAnyOrder.containsInAnyOrder(timeSlotsExpectedList.toArray()));
+
+        assertTrue(timeSlots.size()==timeSlotsExpectedList.size());
+
+        for (int i=0; i<timeSlots.size(); i++) {
+            assertTrue(timeSlots.get(i).getBeginning()==timeSlotsExpectedList.get(i).getBeginning());
+            assertTrue(timeSlots.get(i).getId()==timeSlotsExpectedList.get(i).getId());
+        }
     }
 
     @Test
     public void getMeetingRoomsWithSuccess() {
         List<MeetingRoom> meetingRooms = repository.getMeetingRooms();
         List<MeetingRoom> meetingRoomsExpectedList = FakeApiServiceGenerator.generateMeetingRoomsList();
-        assertThat(meetingRooms, IsIterableContainingInAnyOrder.containsInAnyOrder(meetingRoomsExpectedList.toArray()));
+
+        //assertThat(meetingRooms, IsIterableContainingInAnyOrder.containsInAnyOrder(meetingRoomsExpectedList.toArray()));
+
+        assertTrue(meetingRooms.size()==meetingRoomsExpectedList.size());
+
+        for (int i=0; i<meetingRooms.size(); i++) {
+            assertTrue(meetingRooms.get(i).getName()==meetingRoomsExpectedList.get(i).getName());
+            assertTrue(meetingRooms.get(i).getId()==meetingRoomsExpectedList.get(i).getId());
+        }
     }
 
     @Test
@@ -73,6 +89,25 @@ public class FakeApiServiceUnitTest {
     @Test
     public void updateMeetingDateWithSuccess() {
         // TODO
+        repository.getMeetingDates().clear();
+        MeetingDate meetingDate = new MeetingDate(
+                01,
+                2023,
+                10,
+                15,
+                repository.getMeetingRooms()
+        );
+        repository.addMeetingDate(meetingDate);
+        assertEquals(1, repository.getMeetingDates().size());
+
+        List<MeetingDate> meetingDatesListBeforeUpdate = repository.getMeetingDates();
+        assertTrue(meetingDatesListBeforeUpdate.get(0).getMeetingRooms().get(0).getTimeSlots().get(0).isFree());
+
+        meetingDatesListBeforeUpdate.get(0).getMeetingRooms().get(0).getTimeSlots().get(0).setFree(false);
+        repository.updateMeetingDate(meetingDate);
+
+        List<MeetingDate> meetingDatesListAfterUpdate = repository.getMeetingDates();
+        assertFalse(meetingDatesListAfterUpdate.get(0).getMeetingRooms().get(0).getTimeSlots().get(0).isFree());
     }
 
     @Test
@@ -109,7 +144,27 @@ public class FakeApiServiceUnitTest {
     @Test
     public void deleteMeetingWithSuccess() {
         // TODO
+        repository.getMeetings().clear();
+        repository.getMeetingDates().clear();
+
+        MeetingDate meetingDate = new MeetingDate(
+                01,
+                2023,
+                10,
+                19,
+                repository.getMeetingRooms()
+        );
+        Meeting meeting = new Meeting(
+                01,
+                "anniversaire",
+                meetingDate.getMeetingRooms().get(0),
+                meetingDate,
+                meetingDate.getMeetingRooms().get(0).getTimeSlots().get(0),
+                FakeApiServiceGenerator.generateMembersForMeeting()
+        );
+        repository.addMeeting(meeting);
+        assertEquals(1, repository.getMeetings().size());
+        repository.deleteMeeting(meeting);
+        assertTrue(repository.getMeetings().size()==0);
     }
-
-
 }

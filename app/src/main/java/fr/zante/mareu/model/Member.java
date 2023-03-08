@@ -3,7 +3,8 @@ package fr.zante.mareu.model;
 import java.io.Serializable;
 
 /**
- * Model object representing a member
+ * <p>Model object representing a member</p>
+ * @author Eddy GALMAND
  */
 public class Member implements Serializable {
 
@@ -11,18 +12,16 @@ public class Member implements Serializable {
     private String name;
     private String mail;
 
-    /**
-     * Constructor
-     */
+    // Constructor
+
     public Member(long id, String name, String mail) {
         this.id = id;
         this.name = name;
         this.mail = mail;
     }
 
-    /**
-     * Getters & Setters
-     */
+    // Getters & Setters
+
     public long getId() {return id;}
     public void setId(long id) {this.id = id;}
 

@@ -32,24 +32,91 @@ import fr.zante.mareu.model.Member;
 import fr.zante.mareu.model.TimeSlot;
 import fr.zante.mareu.repository.Repository;
 
+/**
+ * <p>activity called for adding a meeting.</p>
+ * <p>Displays the fields to fill in to add a meeting</p>
+ * @author Eddy GALMAND
+ */
 public class AddMeetingActivity extends AppCompatActivity {
 
+    /**
+     * ImageView clickable allowing a return to the main activity
+     * by closing the current activity
+     */
     private ImageView buttonPreviousPage;
+
+    /**
+     * allowing to select a date for the meeting to be added
+     */
     private DatePicker datePicker;
+
+    /**
+     * the date of the meeting to be added
+     */
     private MeetingDate meetingDate;
+
+    /**
+     * allowing to set a topic for the meeting to be added
+     */
     private TextInputLayout topicInput;
+
+    /**
+     * displaying the meeting room list available
+     * allowing to select one for the meeting to be added
+     */
     private Spinner meetingRoomSpinner;
+
+    /**
+     * the meeting room of the meeting to be added
+     */
     private MeetingRoom meetingRoom;
+
+    /**
+     * displaying the time slot list available
+     * allowing to select one for the meeting to be added
+     */
     private Spinner timeSlotSpinner;
+
+    /**
+     * the time slot of the meeting room to be added
+     */
     private TimeSlot timeSlot;
-    private RecyclerView recyclerView;
+
+    /**
+     * ImageView clickable allowing to open AddMemberActivity
+     * to set the members for the meeting to be added
+     */
     private ImageView addMemberToListButton;
+
+    /**
+     * button adding the meeting to data
+     */
     private MaterialButton addMeetingButton;
 
+    /**
+     * repository allowing data access
+     */
     private Repository repository;
+
+    /**
+     * List of the members participating to the meeting to be added
+     */
     private List<Member> membersForNewMeeting;
+
+    /**
+     * The recyclerView which handles the list of member's mail
+     */
+    private RecyclerView recyclerView;
+
+    /**
+     * The adapter which handles the list of member's mail
+     * displayed in the dedicated recyclerView
+     */
     private MailMemberListAdapter adapter;
 
+    /**
+     * request code for activity result from AddMemberActivity
+     */
     private static final int ADD_MEMBER_ACTIVITY_REQUEST_CODE = 42;
 
     @Override
@@ -82,9 +149,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         configureMeetingRoomSpinner();
         configureTimeSlotSpinner();
         configureAddMemberToListButton();
-
         configureRecyclerViewMailMemberList();
-
         configureAddMeetingButton();
     }
 
@@ -94,12 +159,21 @@ public class AddMeetingActivity extends AppCompatActivity {
         loadMailMemberListData();
     }
 
+    /**
+     * closing the current activity, allowing a return to ListMeetingActivity
+     */
     private void configurePreviousPageButton() {
         buttonPreviousPage.setOnClickListener(view -> {
             finish();
         });
     }
 
+    /**
+     * configure the date picker
+     * allowing to set the meetingDate for the meeting to be added
+     * with the list of meetingRoom
+     * and the list of timeSlots available for the selected date
+     */
     private void configureDatePicker() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -119,6 +193,10 @@ public class AddMeetingActivity extends AppCompatActivity {
         getMeetingDateFromAvailableList();
     }
 
+    /**
+     * get the meetingDate if it already exists
+     * in the list of meeting date available
+     */
     private void getMeetingDateFromAvailableList() {
         List<MeetingDate> availableListMeetingDate = repository.getMeetingDates();
         for (int i=0; i<availableListMeetingDate.size(); i++) {
@@ -129,6 +207,11 @@ public class AddMeetingActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * adding the meeting date selected
+     * to the list of meeting date available in data
+     * if it is not yet there
+     */
     private void addMeetingDateToMyList() {
         boolean isAvailable = false;
         List<MeetingDate> availableDate = repository.getMeetingDates();
@@ -144,6 +227,10 @@ public class AddMeetingActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * displaying the list of meetingRoom of the meetingDate selected
+     * allowing to select one for the meeting to be added
+     */
     private void configureMeetingRoomSpinner() {
         List<MeetingRoom> meetingRoomsList = meetingDate.getMeetingRooms();
         MeetingRoomSpinnerAdapter meetingRoomSpinnerAdapter = new MeetingRoomSpinnerAdapter(this,R.layout.item_meeting_room_spinner, meetingRoomsList);
@@ -160,6 +247,10 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * displaying the list of TimeSlots of the MeetingRoom selected
+     * allowing to select one for the meeting to be added
+     */
     private void configureTimeSlotSpinner() {
         List<TimeSlot> timeSlotsList = meetingRoom.getTimeSlots();
         List<TimeSlot> timeSlotsIsFreeList = new ArrayList<>();
@@ -180,16 +271,29 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * configure the recyclerView displaying the list of member's mail
+     * participating to the meeting to be added
+     */
     private void configureRecyclerViewMailMemberList() {
         recyclerView = findViewById(R.id.add_activity_recycler_view_meeting_member_list);
         adapter = new MailMemberListAdapter();
         recyclerView.setAdapter(adapter);
     }
 
+    /**
+     * Updates the list of member's mail
+     * participating to the meeting to be added
+     */
     private void loadMailMemberListData() {
         adapter.updateMailMemberList(membersForNewMeeting);
     }
 
+    /**
+     * configure the button allowing to access to AddMemberActivity
+     * send the list of member participating to the meeting
+     * send a request code for getting back results
+     */
     private void configureAddMemberToListButton() {
         addMemberToListButton.setOnClickListener(view -> {
             Intent intent = new Intent(view.getContext(), AddMemberActivity.class);
@@ -200,6 +304,12 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * if all the fields are filled
+     * add a new meeting date in data (if not existing yet)
+     * or update this meeting date (see TimeSlot)
+     * add a new meeting in data
+     */
     private void configureAddMeetingButton() {
         addMeetingButton.setOnClickListener(view -> {
             if (topicInput.getEditText().getText().toString().equals("")) {
@@ -231,11 +341,18 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * allow access to this activity
+     * @param activity activity we need to access
+     */
     public static void navigate(FragmentActivity activity) {
         Intent intent = new Intent(activity, AddMeetingActivity.class);
         ActivityCompat.startActivity(activity, intent, null);
     }
 
+    /**
+     * @return an unique Id for the meeting to be added
+     */
     private long buildNewMeetingId() {
         // Create new ID :
         long newId;
@@ -248,6 +365,10 @@ public class AddMeetingActivity extends AppCompatActivity {
         return newId;
     }
 
+    /**
+     * @return an unique Id for the meeting date
+     * when a new one is created
+     */
     private long buildNewMeetingDateId() {
         long newMeetingDateId;
         if (repository.getMeetingDates().size() == 0) {

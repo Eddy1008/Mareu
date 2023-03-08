@@ -88,10 +88,12 @@
         app:layout_constraintTop_toBottomOf="@+id/item_list_meeting_timeslot_beginning" />
 
     <ImageButton
+        android:contentDescription="Supprimer la réunion"
         android:id="@+id/item_list_meeting_delete_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:padding="12dp"
         android:background="@null"
         app:layout_constraintTop_toTopOf="@+id/item_list_meeting_sticker"
         app:layout_constraintEnd_toEndOf="parent"

@@ -22,12 +22,32 @@ import fr.zante.mareu.di.Injection;
 import fr.zante.mareu.model.Member;
 import fr.zante.mareu.repository.Repository;
 
+/**
+ * <p>Activity called to build a list of members </p>
+ * <p>participating to a new meeting to be added</p>
+ * @author Eddy GALMAND
+ */
 public class AddMemberActivity extends AppCompatActivity implements MemberListAdapter.AddToList{
 
+    /**
+     * ImageView clickable allowing a return to the previous activity
+     * by closing the current activity
+     */
     private ImageView previousPageButton;
+
+    /**
+     * The recyclerView which handles the list of members
+     */
     private RecyclerView recyclerView;
+
+    /**
+     * Button used to validate the list built
+     */
     private FloatingActionButton addMemberButton;
 
+    /**
+     *
+     */
     private MemberListAdapter memberListAdapter;
     private Repository repository;
     private List<Member> membersList;

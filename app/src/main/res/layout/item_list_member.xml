@@ -43,6 +43,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/item_list_member_add_list_button"/>
 
             <ImageButton
+                android:contentDescription="add member to the meeting"
                 android:id="@+id/item_list_member_add_list_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

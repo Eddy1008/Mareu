@@ -3,19 +3,18 @@ package fr.zante.mareu.model;
 import java.util.List;
 
 /**
- * Model object representing a Meeting room
+ * <p>Model object representing a Meeting room</p>
+ * @author Eddy GALMAND
  */
 public class MeetingRoom {
 
     private int id;
     private String name;
     private int color;
-
     private List<TimeSlot> timeSlots;
 
-    /**
-     * Constructor
-     */
+    // Constructor
+
     public MeetingRoom(int id, String name, int color, List<TimeSlot> timeSlots) {
         this.id = id;
         this.name = name;
@@ -23,9 +22,8 @@ public class MeetingRoom {
         this.timeSlots = timeSlots;
     }
 
-    /**
-     * Getters & Setters
-     */
+    // Getters & Setters
+
     public int getId() {return id;}
     public void setId(int id) {this.id = id;}
 
